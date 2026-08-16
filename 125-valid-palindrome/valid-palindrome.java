@@ -1,20 +1,27 @@
 class Solution {
     public boolean isPalindrome(String s) {
-        return palindrome(s.toLowerCase(),0,s.length()-1);
-    }
-    public static boolean palindrome(String str, int left, int right){
-        if(left>=right){   //base case 
-            return true;
+        int left = 0;
+        int right = s.length() - 1;
+        
+        while (left < right) {
+            char head = s.charAt(left);
+            char tail = s.charAt(right);
+            
+            // 1. Fast-forward through non-alphanumeric characters in a loop
+            if (!Character.isLetterOrDigit(head)) {
+                left++;
+            } else if (!Character.isLetterOrDigit(tail)) {
+                right--;
+            } else {
+                // 2. Compare characters ignoring case directly without s.toLowerCase()
+                if (Character.toLowerCase(head) != Character.toLowerCase(tail)) {
+                    return false;
+                }
+                left++;
+                right--;
+            }
         }
-        if (!Character.isLetterOrDigit(str.charAt(left))) {   // Skip non-alphanumeric characters from the left
-            return palindrome(str, left + 1, right);
-        }
-        if (!Character.isLetterOrDigit(str.charAt(right))) {  //Skip non-alphanumeric characters from the right
-            return palindrome(str, left, right - 1);
-        }
-        if(str.charAt(left)!=str.charAt(right)){  // Check if characters at the current positions are the same
-            return false;
-        }
-        return palindrome(str,left+1,right-1);
+        
+        return true;
     }
 }
