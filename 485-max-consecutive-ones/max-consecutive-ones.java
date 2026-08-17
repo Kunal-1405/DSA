@@ -7,7 +7,9 @@ class Solution {
             // If the current element is 1, increment the count
             if (nums[i] == 1) {
                 count++;
-                max = Math.max(max, count); // Update maxi if current count is greater than maxi
+                if (count > max) {
+                    max = count;
+                } // Update maxi if current count is greater than maxi
             } else {
                 count = 0; // If the current element is 0, reset the count
             }
